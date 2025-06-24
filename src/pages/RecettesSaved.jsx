@@ -1,29 +1,16 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { getRecipes } from "../utils/recipes";
-import { useSearchParams } from "react-router";
-import extractWords from "../utils/extractWords";
+import React from 'react'
+import { useNavigate } from 'react-router'
+import {useAuth} from "../hooks/useAuth";
 
-const Recettes = () => {
+const RecettesSaved = () => {
+  const {isAuthenticated, user} = useAuth();
   const [recipes, setRecipes] = useState([]);
-  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const allRecipes = await getRecipes(searchParams.get("page") || 1);
-        setRecipes(allRecipes.recipes);
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
-      }
-    };
-
-    fetchRecipes();
-  }, []);
-
+  isAuthenticated || navigate("/login");
   return (
     <div>
-      <h1>Recettes</h1>
+      <h1>Recettes enregistrées</h1>
       <div className="recipes-list">
         {recipes.length > 0
           ? recipes.map((recipe) => {
@@ -45,7 +32,7 @@ const Recettes = () => {
           : false}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Recettes;
+export default RecettesSaved
