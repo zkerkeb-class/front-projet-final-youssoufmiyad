@@ -3,10 +3,24 @@ import { useParams } from "react-router";
 import { getRecipe } from "../utils/recipes";
 import { useAuth } from "../hooks/useAuth";
 
-const RecettesDetail = () => {
+const RecipesDetail = () => {
   const { slug } = useParams();
   const [recipe, setRecipe] = useState();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, addRecipeToUser } = useAuth();
+
+  const handleSave = () => {
+    if (isAuthenticated && user) {
+      addRecipeToUser(recipe._id)
+        .then(() => {
+          console.log("Recette enregistrée avec succès");
+        })
+        .catch((error) => {
+          console.error("Erreur lors de l'enregistrement de la recette:", error);
+        });
+    } else {
+      console.warn("Utilisateur non authentifié ou pas d'utilisateur trouvé");
+    }
+  }
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -21,12 +35,16 @@ const RecettesDetail = () => {
     fetchRecipe();
   }, []);
 
+  useEffect(() => {
+    console.log(recipe);
+  }, [recipe]);
+
   return (
     <div>
       <h1>Recette detail</h1>
       {isAuthenticated ? (
         <div className="action">
-          <button>Enregistrer</button>
+          <button onClick={handleSave}>Enregistrer</button>
           {user && user._id === recipe?.chef?._id ? (
             <button>Modifier</button>
           ) : (
@@ -47,7 +65,7 @@ const RecettesDetail = () => {
                 ))
               : false}
           </ul>
-          <p>{recipe.instructions}</p>
+          <p>{recipe.instructions.en || recipe.instructions}</p>
         </div>
       ) : (
         <p>Loading recipe...</p>
@@ -56,4 +74,4 @@ const RecettesDetail = () => {
   );
 };
 
-export default RecettesDetail;
+export default RecipesDetail;

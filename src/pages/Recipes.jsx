@@ -4,7 +4,7 @@ import { getRecipes } from "../utils/recipes";
 import { useSearchParams } from "react-router";
 import extractWords from "../utils/extractWords";
 
-const Recettes = () => {
+const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [searchParams] = useSearchParams();
 
@@ -31,6 +31,9 @@ const Recettes = () => {
                 <div key={recipe._id} className="recipe-card">
                   <h2>{recipe.title.en}</h2>
                   {/* <p>{recipe.description}</p> */}
+                  <a href={`/recettes/${recipe.slug}`}>
+                    <img src={recipe.imageUrl} alt="" />
+                  </a>
                   <ul>
                     {recipe.ingredients
                       ? recipe.ingredients.map((ingredient, index) => (
@@ -38,7 +41,10 @@ const Recettes = () => {
                         ))
                       : false}
                   </ul>
-                  <p>{recipe.description ?? extractWords(recipe.instructions, 60)}</p>
+                  <p>
+                    {recipe.description ??
+                      extractWords(recipe.instructions.en || recipe.instructions, 60)}
+                  </p>
                 </div>
               );
             })
@@ -48,4 +54,4 @@ const Recettes = () => {
   );
 };
 
-export default Recettes;
+export default Recipes;

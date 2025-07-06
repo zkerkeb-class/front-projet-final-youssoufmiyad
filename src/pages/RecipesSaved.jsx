@@ -1,11 +1,22 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
-import {useAuth} from "../hooks/useAuth";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
+import { getRecipe, getRecipeById } from "../utils/recipes";
+import extractWords from "../utils/extractWords";
 
-const RecettesSaved = () => {
-  const {isAuthenticated, user} = useAuth();
+const RecipesSaved = () => {
+  const { isAuthenticated, getSavedRecipes } = useAuth();
   const [recipes, setRecipes] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getRecipes = async () => {
+      setRecipes(await getSavedRecipes());
+    };
+    getRecipes().catch((error) => {
+      console.error("Error fetching saved recipes:", error);
+    });
+  }, []);
 
   isAuthenticated || navigate("/login");
   return (
@@ -25,14 +36,17 @@ const RecettesSaved = () => {
                         ))
                       : false}
                   </ul>
-                  <p>{recipe.description ?? extractWords(recipe.instructions, 60)}</p>
+                  <p>
+                    {recipe.description ??
+                      extractWords(recipe.instructions, 60)}
+                  </p>
                 </div>
               );
             })
           : false}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RecettesSaved
+export default RecipesSaved;
