@@ -1,0 +1,20 @@
+.pagination{
+    display: flex;
+    gap: 0 20px ;
+    justify-content: center;
+    align-items: center;
+
+    button{
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($color-primary, 10%);
+        }
+
+        &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    }
+}

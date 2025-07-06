@@ -1,11 +1,11 @@
-@import './base/reset';
-@import './base/variables';
-@import './base/mixins';
-@import './base/typography';
-@import './base/containers';
+@import "./base/reset";
+@import "./base/variables";
+@import "./base/mixins";
+@import "./base/typography";
+@import "./base/containers";
 
-@import './components';
-@import './pages';
+@import "./components";
+@import "./pages";
 
 :root {
   --color-primary: #{$color-primary};
@@ -26,5 +26,24 @@
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  padding: $spacing-sm $spacing-md;
+  font-weight: $fw-bold;
+  cursor: pointer;
+  transition: background-color $transition-duration $easeInOut;
+
+  &:hover {
+    background-color: darken($color-primary, 10%);
+  }
+}
+
+.btn {
+  display: block;
 }
