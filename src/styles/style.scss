@@ -1,0 +1,30 @@
+@import './base/reset';
+@import './base/variables';
+@import './base/mixins';
+@import './base/typography';
+@import './base/containers';
+
+@import './components';
+@import './pages';
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-bg: #{$color-bg};
+  --color-text: #{$color-text};
+  --color-accent: #{$color-accent};
+}
+
+[data-theme="dark"] {
+  --color-primary: #{$color-primary}-dark;
+  --color-secondary: #{$color-secondary}-dark;
+  --color-bg: #{$color-bg}-dark;
+  --color-text: #{$color-text}-dark;
+  --color-accent: #{$color-accent}-dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Roboto', sans-serif;
+}

@@ -1,0 +1,30 @@
+.recipe-detail-page {
+  .thumbnail {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1/1;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    margin-bottom: $spacing-sm;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: $transition-duration $easeInOut;
+    }
+  }
+  .ingredients {
+    text-align: start;
+
+    li {
+      text-align: center;
+
+      .name{
+        font-weight: $fw-bold;
+      }
+    }
+  }
+}

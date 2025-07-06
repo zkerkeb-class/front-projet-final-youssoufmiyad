@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  max-width: $container-md;
+  margin: 0 auto;
+  padding: $spacing-lg 0;
+  box-sizing: border-box;
+}
+
+.container-xs {
+  max-width: $container-xs;
+}
+.container-sm {
+  max-width: $container-sm;
+}
+.container-md {
+  max-width: $container-md;
+}
+.container-lg {
+  max-width: $container-lg;
+}
+.container-xl {
+  max-width: $container-xl;
+}
