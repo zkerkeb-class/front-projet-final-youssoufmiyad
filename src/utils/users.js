@@ -17,3 +17,21 @@ export async function getUserById(id) {
     console.error(error);
   }
 }
+
+export async function getRecipesByUserId(userId) {
+  try {
+    const response = await api.get(`/users/${userId}/recipes`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getSavedRecipesByUserId(userId) {
+  try {
+    const response = await api.get(`/users/${userId}/saved-recipes`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
