@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -32,7 +33,7 @@ const SignUp = () => {
 };
   
   return (
-    <section>
+    <section className="auth-page">
       <div className="container">
         <h1>{t("signup")}</h1>
         <form onSubmit={handleSubmit}>

@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <section>
+    <section className="auth-page">
       <div className="container">
         <h1>Se connecter</h1>
         <form onSubmit={handleSubmit}>

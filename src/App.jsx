@@ -20,22 +20,26 @@ function App() {
   i18ninit();
   return (
     <>
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recettes" element={<Recipes />} />
           <Route path="/recettes/:slug" element={<RecipesDetail />} />
-		  <Route path="/recettes/ajouter-une-recette" element={<AddRecipe/>}/>
-		  <Route path="/recettes/modifier/:id" element={<ModifyRecipe/>}/>
+          <Route path="/recettes/ajouter-une-recette" element={<AddRecipe />} />
+          <Route path="/recettes/modifier/:id" element={<ModifyRecipe />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/:slug" element={<Profil />} />
-		  <Route path="/mes-recettes" element={<RecipesSaved />} />
+          <Route path="/mes-recettes" element={<RecipesSaved />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/recipes" element={<AdminRecipes />} />
           <Route path="/admin/recipes/create" element={<CreateRecipe />} />
-          <Route path="/admin/recipes/modify/:id" element={<AdminModifyRecipe />} />
+          <Route
+            path="/admin/recipes/modify/:id"
+            element={<AdminModifyRecipe />}
+          />
         </Routes>
       </BrowserRouter>
     </>

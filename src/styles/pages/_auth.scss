@@ -1,0 +1,72 @@
+.auth-page {
+  padding: $spacing-xl 0;
+
+  h1 {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--color-bg);
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $spacing-md;
+
+      label {
+        font-weight: $fw-bold;
+        margin-bottom: $spacing-xs;
+      }
+
+      input {
+        padding: $spacing-sm;
+        border: 1px solid #ccc;
+        border-radius: $border-radius;
+        font-size: $fs-base;
+        transition: border-color $transition-duration $easeInOut;
+
+        &:focus {
+          outline: none;
+          border-color: var(--color-primary);
+        }
+      }
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: $border-radius;
+      padding: $spacing-sm $spacing-md;
+      font-weight: $fw-bold;
+      cursor: pointer;
+      transition: background-color $transition-duration $easeInOut;
+
+      &:hover {
+        background-color: darken($color-primary, 10%);
+      }
+    }
+  }
+
+  p {
+    margin-top: $spacing-md;
+    text-align: center;
+    font-size: $fs-small;
+
+    a {
+      color: var(--color-primary);
+      cursor: pointer;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
