@@ -9,6 +9,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -33,60 +34,60 @@ const SignUp = () => {
   return (
     <section>
       <div className="container">
-        <h1>S'inscrire</h1>
+        <h1>{t("signup")}</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="firstname">Prénom</label>
+            <label htmlFor="firstname">{t("firstname")}</label>
             <input
               type="text"
               id="firstname"
-              placeholder="Entrez votre prénom"
+              placeholder={t("firstnamePlaceholder")}
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="lastname">Nom</label>
+            <label htmlFor="lastname">{t("lastname")}</label>
             <input
               type="text"
               id="lastname"
-              placeholder="Entrez votre nom"
+              placeholder={t("lastnamePlaceholder")}
               onChange={(e) => setLastName(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t("email")}</label>
             <input
               type="email"
               id="email"
-              placeholder="Entrez votre email"
+              placeholder={t("emailPlaceholder")}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
+            <label htmlFor="password">{t("password")}</label>
             <input
               type="password"
               id="password"
-              placeholder="Entrez votre mot de passe"
+              placeholder={t("passwordPlaceholder")}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            S'inscrire
+            {t("signup")}
           </button>
         </form>
         <p>
-          Déjà inscrit ?{" "}
+          {t("alreadyMember")+" "}
           <a
             onClick={() => {
               navigate("/login");
             }}
           >
-            Connectez-vous
+            {t("loginCta")}
           </a>
         </p>
       </div>

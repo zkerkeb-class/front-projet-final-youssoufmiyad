@@ -13,8 +13,11 @@
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
+    "i18next": "^25.3.1",
+    "i18next-browser-languagedetector": "^8.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-i18next": "^15.6.0",
     "react-router": "^7.6.0"
   },
   "devDependencies": {
@@ -26,6 +29,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.1.0",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.89.2",
     "vite": "^6.3.5"
   }
 }

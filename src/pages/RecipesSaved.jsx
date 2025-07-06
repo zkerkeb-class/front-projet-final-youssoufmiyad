@@ -21,7 +21,7 @@ const RecipesSaved = () => {
   isAuthenticated || navigate("/login");
   return (
     <div>
-      <h1>Recettes enregistrées</h1>
+      <h1>{t("recipesSaved")}</h1>
       <div className="recipes-list">
         {recipes.length > 0
           ? recipes.map((recipe) => {

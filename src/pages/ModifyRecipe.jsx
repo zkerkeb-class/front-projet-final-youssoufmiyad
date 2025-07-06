@@ -6,6 +6,7 @@ import { getRecipeById, modifyRecipe } from "../utils/recipes";
 import IngredientForm from "../components/ingredientForm/IngredientForm";
 import TagForm from "../components/tagForm/TagForm";
 import Repeater from "../components/repeater/Repeater";
+import { useTranslation } from "react-i18next";
 
 const ModifyRecipe = () => {
   const [titleFr, setTitleFr] = useState("");
@@ -25,6 +26,7 @@ const ModifyRecipe = () => {
   const { user, token } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -43,7 +45,7 @@ const ModifyRecipe = () => {
         setVideo(recipe.videoUrl);
         setSlug(recipe.slug);
       } catch (error) {
-        console.error("Error fetching recipe:", error);
+        console.error(t("recipeFetchError"), error);
       }
     };
     fetchRecipe();
@@ -55,15 +57,11 @@ const ModifyRecipe = () => {
         const categories = await getCategories();
         setCategories(categories);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error(t("categoriesFetchError"), error);
       }
     };
     fetchCategories();
   }, []);
-
-  useEffect(() => {
-    console.log(tags);
-  }, [tags]);
 
   const handleIngredientsChange = (newIngredients) => {
     setIngredients(newIngredients);
@@ -94,26 +92,26 @@ const ModifyRecipe = () => {
     try {
       const response = await modifyRecipe(id, recipeData, token);
       if (response.status === 202 || response.data?._id) {
-        console.log("Recette modifiée avec succès");
+        console.log(t("recipeModifiedSuccess"));
         navigate(`/recettes/${slug}`);
       } else {
         console.error(
-          "Erreur lors de la modification de la recette : ",
+          t("recipeModifiedError"),
           response.data
         );
       }
     } catch (error) {
-      console.error("Error modifying recipe:", error);
+      console.error(t("recipeModifiedError"), error);
     }
   };
 
   return (
     <div>
-      <h1>Modifier la recette</h1>
+      <h1>{t("modifyRecipe")}</h1>
       {recipe ? (
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Titre (Français):</label>
+            <label>{t("title")} ({t("frLabel")}):</label>
             <input
               type="text"
               value={titleFr}
@@ -122,7 +120,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div>
-            <label>Titre (English):</label>
+            <label>{t("title")} ({t("enLabel")}):</label>
             <input
               type="text"
               value={titleEn}
@@ -131,7 +129,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div>
-            <label>Catégorie:</label>
+            <label>{t("category")}:</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -145,7 +143,7 @@ const ModifyRecipe = () => {
             </select>
           </div>
           <div>
-            <label>Zone:</label>
+            <label>{t("area")}:</label>
             <input
               type="text"
               value={area}
@@ -154,7 +152,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div>
-            <label>Instructions (Français):</label>
+            <label>{t("instructions")} ({t("frLabel")}):</label>
             <textarea
               value={instructionsFr}
               onChange={(e) => setInstructionsFr(e.target.value)}
@@ -162,7 +160,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div>
-            <label>Instructions (English):</label>
+            <label>{t("instructions")} ({t("enLabel")}):</label>
             <textarea
               value={instructionsEn}
               onChange={(e) => setInstructionsEn(e.target.value)}
@@ -170,7 +168,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div className="ingredients">
-            <h2>Ingredients</h2>
+            <h2>{t("ingredients")}</h2>
             <Repeater
               FormComponent={IngredientForm}
               initialValue={{ ingredient: "", measure: "" }}
@@ -179,7 +177,7 @@ const ModifyRecipe = () => {
             />
           </div>
           <div className="tags">
-            <h2>Tags</h2>
+            <h2>{t("tags")}</h2>
             <Repeater
               FormComponent={TagForm}
               initialValue={{ tag: "" }}
@@ -188,10 +186,10 @@ const ModifyRecipe = () => {
             />
           </div>
 
-          <button type="submit">Modifier la recette</button>
+          <button type="submit">{t("modifyRecipe")}</button>
         </form>
       ) : (
-        <p>Chargement de la recette...</p>
+        <p>{t("loadRecipe")}</p>
       )}
     </div>
   );

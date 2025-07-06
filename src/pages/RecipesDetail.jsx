@@ -2,25 +2,30 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getRecipe } from "../utils/recipes";
 import { useAuth } from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const RecipesDetail = () => {
   const { slug } = useParams();
   const [recipe, setRecipe] = useState();
   const { isAuthenticated, user, addRecipeToUser } = useAuth();
+  const { t, i18n } = useTranslation();
 
   const handleSave = () => {
     if (isAuthenticated && user) {
       addRecipeToUser(recipe._id)
         .then(() => {
-          console.log("Recette enregistrée avec succès");
+          console.log(t("recipeSavedSuccess"));
         })
         .catch((error) => {
-          console.error("Erreur lors de l'enregistrement de la recette:", error);
+          console.error(
+            t("recipeSavedError"),
+            error
+          );
         });
     } else {
-      console.warn("Utilisateur non authentifié ou pas d'utilisateur trouvé");
+      console.warn(t("userNotAuth"));
     }
-  }
+  };
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -28,25 +33,25 @@ const RecipesDetail = () => {
         let recipe = await getRecipe(slug);
         setRecipe(recipe);
       } catch (error) {
-        console.error("Error fetching recipes:", error);
+        console.error(t("recipeFetchError"), error);
       }
     };
 
     fetchRecipe();
   }, []);
 
-  useEffect(() => {
-    console.log(recipe);
-  }, [recipe]);
-
   return (
     <div>
-      <h1>Recette detail</h1>
+      <h1>
+        {i18n.language === "fr"
+          ? recipe?.title.fr || recipe?.title.en
+          : recipe?.title.en || recipe?.title.fr}
+      </h1>
       {isAuthenticated ? (
         <div className="action">
-          <button onClick={handleSave}>Enregistrer</button>
+          <button onClick={handleSave}>{t("save")}</button>
           {user && user._id === recipe?.chef?._id ? (
-            <button>Modifier</button>
+            <button>{t("modify")}</button>
           ) : (
             false
           )}
@@ -56,7 +61,6 @@ const RecipesDetail = () => {
       )}
       {recipe ? (
         <div className="recipe-detail">
-          <h2>{recipe.title.en}</h2>
           <p>{recipe.description}</p>
           <ul>
             {recipe.ingredients
@@ -68,7 +72,7 @@ const RecipesDetail = () => {
           <p>{recipe.instructions.en || recipe.instructions}</p>
         </div>
       ) : (
-        <p>Loading recipe...</p>
+        <p>{t("loadRecipe")}</p>
       )}
     </div>
   );

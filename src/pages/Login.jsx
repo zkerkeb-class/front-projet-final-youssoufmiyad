@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useAsyncValue, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       login(email, password);
-      if (isAuthenticated) {navigate(-1)};
+      if (isAuthenticated) {
+        navigate(-1);
+      }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
@@ -47,16 +51,20 @@ const Login = () => {
               required
             />
           </div>
-          <input type="submit" className="btn btn-primary" value="Se connecter" />
+          <input
+            type="submit"
+            className="btn btn-primary"
+            value="Se connecter"
+          />
         </form>
         <p>
-          Pas encore inscrit ?{" "}
+          {t("notMember") + " "}
           <a
             onClick={() => {
               navigate("/signup");
             }}
           >
-            Inscrivez-vous
+            {t("signupCta")}
           </a>
         </p>
       </div>

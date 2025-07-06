@@ -5,6 +5,7 @@ import IngredientForm from "../components/ingredientForm/IngredientForm";
 import TagForm from "../components/tagForm/TagForm";
 import { addRecipe, associateRecipeWithChef } from "../utils/recipes";
 import { useAuth } from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const AddRecipe = () => {
   const [titleFr, setTitleFr] = useState("");
@@ -23,6 +24,7 @@ const AddRecipe = () => {
   const [categories, setCategories] = useState([]);
 
   const { user, token } = useAuth();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -60,10 +62,9 @@ const AddRecipe = () => {
       tags,
       image,
       video,
-      chef: user._id, // Assurez-vous que l'utilisateur est connecté
+      chef: user._id,
     };
-    console.log(recipeData);
-    console.log("Token:", token);
+
     addRecipe(recipeData, token)
       .then((data) => {
         // Associer la recette avec le chef (utilisateur)
@@ -101,32 +102,34 @@ const AddRecipe = () => {
   return (
     <section>
       <div className="container">
-        <h1>Ajouter une recette</h1>
+        <h1>{t("addRecipe")}</h1>
         <form onSubmit={handleSubmit}>
-          <h2>Informations</h2>
+          <h2>{t("informations")}</h2>
           <div className="form-group form-group-50">
-            <label htmlFor="title_en">Titre de la recette (anglais)</label>
+            <label htmlFor="title_en">
+              {t("title")} ({t("enLabel")})
+            </label>
             <input
               type="text"
               id="title_en"
-              placeholder="Entrez le titre de la recette"
+              placeholder={t("titlePlaceholder")}
               onChange={(e) => setTitleEn(e.target.value)}
               value={titleEn}
               required
             />
           </div>
           <div className="form-group form-group-50">
-            <label htmlFor="title_fr">Titre de la recette (français)</label>
+            <label htmlFor="title_fr">{t("title")} ({t("frLabel")})</label>
             <input
               type="text"
               id="title_fr"
-              placeholder="Entrez le titre de la recette"
+              placeholder={t("titlePlaceholder")}
               onChange={(e) => setTitleFr(e.target.value)}
               value={titleFr}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="category">Catégorie</label>
+            <label htmlFor="category">{t("category")}</label>
             <select
               name="category"
               id="category"
@@ -136,7 +139,7 @@ const AddRecipe = () => {
               }}
               required
             >
-              <option value="">Sélectionnez une catégorie</option>
+              <option value="">{t("selectCategory")}</option>
               {categories
                 ? categories.map((category) => (
                     <option key={category._id} value={category._id}>
@@ -147,39 +150,41 @@ const AddRecipe = () => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="area">Origine</label>
+            <label htmlFor="area">{t("area")}</label>
             <input
               type="text"
               id="area"
-              placeholder="Entrez l'origine de la recette"
+              placeholder={t("areaPlaceholder")}
               onChange={(e) => setArea(e.target.value)}
               value={area}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="instructions_en">Instructions (anglais)</label>
+            <label htmlFor="instructions_en">
+              {t("instructions")} ({t("enLabel")})
+            </label>
             <textarea
               rows={5}
               id="instructions_en"
-              placeholder="Entrez les instructions de la recette en anglais"
+              placeholder={t("instructionsPlaceholder")}
               onChange={(e) => setInstructionsEn(e.target.value)}
               value={instructionsEn}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="instructions_fr">Instructions (français)</label>
+            <label htmlFor="instructions_fr">{t("instructions")} ({t("frLabel")})</label>
             <textarea
               rows="5"
               id="instructions_fr"
-              placeholder="Entrez les instructions de la recette en français"
+              placeholder={t("instructionsPlaceholder")}
               onChange={(e) => setInstructionsFr(e.target.value)}
               value={instructionsFr}
             />
           </div>
           <div className="ingredients">
-            <h2>Ingredients</h2>
+            <h2>{t("ingredients")}</h2>
             <Repeater
               FormComponent={IngredientForm}
               initialValue={{ ingredient: "", measure: "" }}
@@ -187,7 +192,7 @@ const AddRecipe = () => {
             />
           </div>
           <div className="tags">
-            <h2>Tags</h2>
+            <h2>{t("tags")}</h2>
             <Repeater
               FormComponent={TagForm}
               initialValue={{ tag: "" }}
@@ -195,7 +200,7 @@ const AddRecipe = () => {
             />
           </div>
           <div className="form-group form-group-50">
-            <label htmlFor="image">photo de la recette</label>
+            <label htmlFor="image">{t("recipePicture")}</label>
             <input
               type={fileFormat ? "url" : "file"}
               id="image"
@@ -215,9 +220,9 @@ const AddRecipe = () => {
                 }
               }}
               value={fileFormat ? image : ""}
-              placeholder="Entrez l'image de la recette"
+              placeholder={t("recipePicturePlaceholder")}
             />
-            <label htmlFor="url">url</label>
+            <label htmlFor="url">{t("recipePictureTypeUrl")}</label>
             <input
               type="radio"
               id="url"
@@ -227,7 +232,7 @@ const AddRecipe = () => {
                 setFileFormat(!fileFormat);
               }}
             />
-            <label htmlFor="file">fichier</label>
+            <label htmlFor="file">{t("recipePictureTypeFile")}</label>
             <input
               type="radio"
               id="file"
@@ -238,11 +243,11 @@ const AddRecipe = () => {
             />
           </div>
           <div className="form-group form-group-50">
-            <label htmlFor="video">Vidéo de la recette</label>
+            <label htmlFor="video">{t("recipeVideo")}</label>
             <input
               type="url"
               id="video"
-              placeholder="Entrez l'URL de la vidéo de la recette"
+              placeholder={t("recipeVideoPlaceholder")}
               onChange={(e) => setVideo(e.target.value)}
               value={video}
             />

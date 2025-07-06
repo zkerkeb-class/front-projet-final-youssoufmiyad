@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRecipesByUserId, getUser } from "../utils/users";
 import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -10,12 +11,13 @@ const Profil = () => {
   const auth = useAuth();
   const [createdRecipes, setCreatedRecipes] = useState();
   const [savedRecipes, setSavedRecipes] = useState();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const queryUser = async () => {
       let user = await getUser(slug);
       if (!user) {
-        console.error("User not found");
+        console.error(t("userNotFound"));
         return;
       }
       setUser(user);
@@ -30,7 +32,7 @@ const Profil = () => {
           setCreatedRecipes(await auth.getRecipes());
           setSavedRecipes(await auth.getSavedRecipes());
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          console.error(t("userFetchError"), error);
         }
       };
       fetchUserData();
@@ -40,7 +42,7 @@ const Profil = () => {
           setCreatedRecipes(getRecipesByUserId(user?._id));
           setSavedRecipes(getRecipesByUserId(user?._id));
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          console.error(t("userFetchError"), error);
         }
       };
       fetchUserData();
@@ -49,33 +51,33 @@ const Profil = () => {
 
   return (
     <div>
-      <h1>Profil</h1>
+      <h1>{t("profil")}</h1>
       {user ? (
         <div className="profil-detail">
           <h2>
             {user.firstName} {user.lastName}
           </h2>
-          <p>Role : {user.role}</p>
-          <p>Email: {user.email}</p>
-          <p>Slug: {user.slug}</p>
+          <p>{t("role")}: {user.role}</p>
+          <p>{t("email")}: {user.email}</p>
+          <p>{t("slug")}: {user.slug}</p>
           <div className="saved-recipes">
-            <h3>Recettes sauvegardées</h3>
+            <h3>{t("recipesSaved")}</h3>
             {savedRecipes?.length > 0 ? (
               <ul>
                 {savedRecipes.map((recipe, index) => (
                   <li key={index}>
                     {recipe.title?.en}
-                    <button onClick={() => navigate(`/recettes/${recipe.slug}`)}>Voir</button>
-                    <button onClick={() => auth.removeSavedRecipe(recipe._id)}>Supprimer</button>
+                    <button onClick={() => navigate(`/recettes/${recipe.slug}`)}>{t("view")}</button>
+                    <button onClick={() => auth.removeSavedRecipe(recipe._id)}>{t("delete")}</button>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p>Aucune recette sauvegardée</p>
+              <p>{t("noSavedRecipes")}</p>
             )}
           </div>
           <div className="created-recipes">
-            <h3>Recettes créées</h3>
+            <h3>{t("recipesCreated")}</h3>
             {createdRecipes?.length > 0 ? (
               <ul>
                 {createdRecipes.map((recipe, index) => (
@@ -88,12 +90,12 @@ const Profil = () => {
                 ))}
               </ul>
             ) : (
-              <p>Aucune recette créée</p>
+              <p>{t("noCreatedRecipes")}</p>
             )}
           </div>
         </div>
       ) : (
-        <p>Loading user...</p>
+        <p>{t("loadUser")}</p>
       )}
     </div>
   );

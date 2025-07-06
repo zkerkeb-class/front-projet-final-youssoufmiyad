@@ -11,13 +11,13 @@ import CreateRecipe from "./pages/admin/CreateRecipe";
 import AdminModifyRecipe from "./pages/admin/ModifyRecipe";
 import ModifyRecipe from "./pages/ModifyRecipe";
 import Profil from "./pages/Profil";
-import { createContext } from "react";
 import Navbar from "./components/navbar/Navbar";
 import AddRecipe from "./pages/AddRecipe";
 import RecipesSaved from "./pages/RecipesSaved";
+import i18ninit from "./utils/i18n";
 
 function App() {
-  const authContext = createContext();
+  i18ninit();
   return (
     <>
       <Navbar />
