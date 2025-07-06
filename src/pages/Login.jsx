@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     try {
       login(email, password);
-      if (isAuthenticated) navigate(-1);
+      if (isAuthenticated) {navigate(-1)};
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
@@ -47,9 +47,7 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Se connecter
-          </button>
+          <input type="submit" className="btn btn-primary" value="Se connecter" />
         </form>
         <p>
           Pas encore inscrit ?{" "}
