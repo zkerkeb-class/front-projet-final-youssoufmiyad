@@ -39,18 +39,7 @@
     }
 
     .btn-primary {
-      background-color: var(--color-primary);
-      color: white;
-      border: none;
-      border-radius: $border-radius;
-      padding: $spacing-sm $spacing-md;
-      font-weight: $fw-bold;
-      cursor: pointer;
-      transition: background-color $transition-duration $easeInOut;
-
-      &:hover {
-        background-color: darken($color-primary, 10%);
-      }
+        margin: 0 auto;
     }
   }
 

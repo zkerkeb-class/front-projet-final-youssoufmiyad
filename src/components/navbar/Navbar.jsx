@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import ThemeToggle from "../ThemeToggle";
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -28,12 +29,22 @@ const Navbar = () => {
       </ul>
 
       {isAuthenticated ? (
-        <button onClick={logout}>Déconnexion</button>
+        <button className="btn btn-primary" onClick={logout}>
+          Déconnexion
+        </button>
       ) : (
-        <button onClick={()=>{navigate("./login")}}>Connexion</button>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            navigate("./login");
+          }}
+        >
+          Connexion
+        </button>
       )}
 
       <button
+        className="btn btn-primary"
         onClick={() => {
           changeLanguage("fr");
         }}
@@ -41,12 +52,14 @@ const Navbar = () => {
         FR
       </button>
       <button
+        className="btn btn-primary"
         onClick={() => {
           changeLanguage("en");
         }}
       >
         EN
       </button>
+      <ThemeToggle />
     </nav>
   );
 };

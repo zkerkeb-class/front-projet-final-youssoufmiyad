@@ -21,10 +21,13 @@ const Pagination = ({ page, totalPages }) => {
           </button>
         </>
       )}
-      <button disabled>{page}</button>
+      <button className="btn btn-primary" disabled>
+        {page}
+      </button>
       {totalPages > Number(page) + 3 ? (
         <>
           <button
+            className="btn btn-primary"
             onClick={() => {
               handlePageChange(page + 1);
             }}
@@ -32,6 +35,7 @@ const Pagination = ({ page, totalPages }) => {
             {Number(page) + 1}
           </button>
           <button
+            className="btn btn-primary"
             onClick={() => {
               handlePageChange(page + 2);
             }}
@@ -39,6 +43,7 @@ const Pagination = ({ page, totalPages }) => {
             {Number(page) + 2}
           </button>
           <button
+            className="btn btn-primary"
             onClick={() => {
               handlePageChange(page + 3);
             }}
@@ -49,10 +54,13 @@ const Pagination = ({ page, totalPages }) => {
         </>
       ) : (
         Array.from({ length: totalPages - Number(page) }, (_, idx) => (
-          <button key={Number(page) + idx + 1}>{Number(page) + idx + 1}</button>
+          <button className="btn btn-primary" key={Number(page) + idx + 1}>
+            {Number(page) + idx + 1}
+          </button>
         ))
       )}
       <button
+        className="btn btn-primary"
         onClick={() => {
           handlePageChange(totalPages);
         }}

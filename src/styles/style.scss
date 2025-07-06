@@ -16,11 +16,11 @@
 }
 
 [data-theme="dark"] {
-  --color-primary: #{$color-primary}-dark;
-  --color-secondary: #{$color-secondary}-dark;
-  --color-bg: #{$color-bg}-dark;
-  --color-text: #{$color-text}-dark;
-  --color-accent: #{$color-accent}-dark;
+  --color-primary: #{$color-primary-dark};
+  --color-secondary: #{$color-secondary-dark};
+  --color-bg: #{$color-bg-dark};
+  --color-text: #{$color-text-dark};
+  --color-accent: #{$color-accent-dark};
 }
 
 body {
