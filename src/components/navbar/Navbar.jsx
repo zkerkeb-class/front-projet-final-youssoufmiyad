@@ -15,18 +15,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <ul className="nav-links">
-        <li>
-          <a href="/Recettes">Recettes</a>
-        </li>
-        {isAuthenticated ? (
-          <li>
-            <a href={`/${user.slug}`}>Profil</a>
-          </li>
-        ) : (
-          false
-        )}
-      </ul>
+      
 
       {isAuthenticated ? (
         <button className="btn btn-primary" onClick={logout}>
@@ -59,6 +48,18 @@ const Navbar = () => {
       >
         EN
       </button>
+      <ul className="nav-links" style={{ display: "flex", gap: "10px" }}>
+        <li>
+          <a className="btn btn-primary" href="/Recettes">Recettes</a>
+        </li>
+        {isAuthenticated ? (
+          <li>
+            <a className="btn btn-primary" href={`/${user.slug}`}>Profil</a>
+          </li>
+        ) : (
+          false
+        )}
+      </ul>
       <ThemeToggle />
     </nav>
   );

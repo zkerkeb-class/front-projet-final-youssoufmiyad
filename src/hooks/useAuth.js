@@ -19,6 +19,7 @@ export function useAuth() {
       setUser(user);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      window.location.reload();
     } catch (err) {
       throw new Error(err.response?.data?.message || "Erreur de connexion");
     }
@@ -29,6 +30,7 @@ export function useAuth() {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    window.location.reload();
   };
 
   const addRecipeToUser = async (recipeId) => {

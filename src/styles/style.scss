@@ -30,7 +30,7 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
+  background-color: $color-primary;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -40,7 +40,7 @@ body {
   transition: background-color $transition-duration $easeInOut;
 
   &:hover {
-    background-color: darken($color-primary, 10%);
+    background-color: darken(#F57C00, 10%);
   }
 }
 

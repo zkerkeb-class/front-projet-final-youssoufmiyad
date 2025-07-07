@@ -13,6 +13,7 @@ const Pagination = ({ page, totalPages }) => {
       {page > 1 && (
         <>
           <button
+          className="btn btn-primary"
             onClick={() => {
               handlePageChange(page - 1);
             }}

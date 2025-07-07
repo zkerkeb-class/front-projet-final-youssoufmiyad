@@ -6,11 +6,11 @@
 .recipe-card {
   width: 100%;
   max-width: 420px;
-  background-color: #fff;
   margin: $spacing-lg auto;
   padding: $spacing-lg $spacing-md;
   border-radius: $border-radius;
   text-align: start;
+  border: 1px solid ;
 
   &:first-of-type {
     margin-top: 0;
